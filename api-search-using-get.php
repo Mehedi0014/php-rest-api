@@ -2,8 +2,11 @@
 header('Content-Type: application/json');
 header('Access-Control-Allow-Origin: *');
 
-$data = json_decode( file_get_contents("php://input"), true );
-$search_value = $data['search'];
+// $data = json_decode( file_get_contents("php://input"), true );
+// $search_value = $data['search'];
+
+$search_value = isset( $_GET['search'] ) ? $_GET['search'] : die();
+
 include "config.php";
 
 $sql = "SELECT * FROM students WHERE student_name LIKE '%{$search_value}%'";
