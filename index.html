@@ -145,7 +145,6 @@
   $("#save-button").on("click", function(e){
     e.preventDefault();
     var jsonObj = jsonData("#addForm");
-    // console.log(jsonObj);
     if( jsonObj == false ) {
       message( "All fields are required.", false );
     } else {      
@@ -192,6 +191,26 @@
   })
 
   //Update Record
+  $("#edit-submit").on("click", function(e){
+    e.preventDefault();
+    var jsonObj = jsonData("#edit-form");
+    if( jsonObj == false ) {
+      message( "All fields are required.", false );
+    } else {      
+      $.ajax({
+        url : 'http://localhost/php-rest-api/api-update.php',
+        type : 'POST',
+        data : jsonObj,
+        success : function(data) {
+          message(data.message, data.status);
+          if(data.status == true ) {
+            $('#modal').hide();
+            loadTable();
+          }
+        }
+      })
+    }
+  })
 
   //Live Search Record
 
